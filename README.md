@@ -1,4 +1,4 @@
-# beyond the barrier
+# there is no border
 
 ## Setup
 
