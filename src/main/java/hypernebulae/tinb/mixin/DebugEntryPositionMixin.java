@@ -35,7 +35,7 @@ public abstract class DebugEntryPositionMixin {
     private char getXZColor(double coord) {
         double absolute = Math.abs(coord);
         if (absolute < 10000) {
-            return 'r';
+            return 'f';
         } else if (absolute < 1E6) {
             return 'b';
         } else if (absolute < 3E7) {
@@ -51,7 +51,7 @@ public abstract class DebugEntryPositionMixin {
 
     private char getYColor(double coord) {
         if (coord > -64 && coord < 320) {
-            return 'r';
+            return 'f';
         } else {
             double absolute = Math.abs(coord);
             if (absolute < 2048) {
@@ -94,14 +94,22 @@ public abstract class DebugEntryPositionMixin {
                 SectionPos.blockToSectionCoord(blockPos.getX()),
                 SectionPos.blockToSectionCoord(blockPos.getZ())
         );
-        Direction direction = entity.getDirection();
+        Direction dir = entity.getDirection();
 
-        String directionText = switch (direction) {
-            case NORTH -> "Towards negative Z";
-            case SOUTH -> "Towards positive Z";
-            case WEST -> "Towards negative X";
-            case EAST -> "Towards positive X";
-            default -> "Invalid";
+        String direction = switch (dir) {
+            case EAST -> "§ceast§r";
+            case WEST -> "§ewest§r";
+            case SOUTH -> "§bsouth§r";
+            case NORTH -> "§anorth§r";
+            default -> "§fInvalid§r";
+        };
+
+        String dirAxis = switch (dir) {
+            case EAST -> "Towards §cpositive X§r";
+            case WEST -> "Towards §enegative X§r";
+            case SOUTH -> "Towards §bpositive Z§r";
+            case NORTH -> "Towards §anegative Z§r";
+            default -> "§fInvalid§r";
         };
 
         double maxPosition = Math.max(Math.abs(entity.getX()), Math.max(Math.abs(entity.getY()), Math.abs(entity.getZ())));
@@ -111,8 +119,8 @@ public abstract class DebugEntryPositionMixin {
         if (maxPosition >= 65536) {
             long maxPositionLong = (long) maxPosition;
             int maxBit = 64 - Long.numberOfLeadingZeros(maxPositionLong);
-            doublePrecision = Math.pow(2.0D, maxBit - 53);
-            floatPrecision = Math.pow(2.0D, maxBit - 24);
+            doublePrecision = Math.pow(2, maxBit - 53);
+            floatPrecision = Math.pow(2, maxBit - 24);
         } else {
             doublePrecision = Math.ulp(maxPosition);
             floatPrecision = Math.ulp((float) maxPosition);
@@ -122,6 +130,11 @@ public abstract class DebugEntryPositionMixin {
         LongSet forcedChunks = level instanceof ServerLevel serverLevel
                 ? serverLevel.getForceLoadedChunks()
                 : LongSets.EMPTY_SET;
+
+        float rotY = Mth.wrapDegrees(entity.getYRot());
+        float rotX = Mth.wrapDegrees(entity.getXRot());
+
+        String rotYText = (rotY < 0 ? "§c" : "§b") + "%.1f§r".formatted(rotY);
 
         displayer.addToGroup(
                 DebugEntryPosition.GROUP,
@@ -133,7 +146,7 @@ public abstract class DebugEntryPositionMixin {
                         "Current precision: §"
                                 + getColorPrecision(doublePrecision)
                                 + doublePrecision
-                                + "§r (float: §"
+                                + "§r (§ffloat§r: §"
                                 + getColorPrecision(floatPrecision)
                                 + floatPrecision
                                 + "§r)",
@@ -149,7 +162,7 @@ public abstract class DebugEntryPositionMixin {
 
                         String.format(
                                 Locale.ROOT,
-                                "Chunk: §c%d §a%d §b%d §r[§c%d §b%d §rin r.§c%d§r.§b%d§r.mca]",
+                                "Chunk: §c%d §a%d §b%d §r[§c%d §b%d §rin §fr.§c%d§f.§b%d§f.mca§r]",
                                 chunkPos.x(),
                                 SectionPos.blockToSectionCoord(blockPos.getY()),
                                 chunkPos.z(),
@@ -161,11 +174,11 @@ public abstract class DebugEntryPositionMixin {
 
                         String.format(
                                 Locale.ROOT,
-                                "Facing: %s (%s) (%.1f / %.1f)",
+                                "Facing: %s (%s) (%s / §a%.1f§r)",
                                 direction,
-                                directionText,
-                                Mth.wrapDegrees(entity.getYRot()),
-                                Mth.wrapDegrees(entity.getXRot())
+                                dirAxis,
+                                rotYText,
+                                rotX
                         ),
 
                         minecraft.level.dimension().identifier() + " FC: " + forcedChunks.size()
