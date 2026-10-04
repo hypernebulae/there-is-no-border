@@ -17,6 +17,9 @@
 	"entrypoints": {
 		"main": [
 			"hypernebulae.tinb.Main"
+		],
+		"client": [
+			"hypernebulae.tinb.Commands"
 		]
 	},
 	"mixins": [
