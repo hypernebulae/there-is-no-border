@@ -5,6 +5,7 @@
 	"mixins": [
 		"ChunkPosMixin",
 		"DebugEntryPositionMixin",
+		"DebugEntrySectionPositionMixin",
 		"DedicatedServerPropertiesMixin",
 		"EntityMixin",
 		"EntitySectionStorageMixin",
