@@ -17,7 +17,6 @@ public class Main implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("initializing there is no border - get ready to break the limits!");
-		Commands.register();
 	}
 
 	public static Identifier id(String path) {
