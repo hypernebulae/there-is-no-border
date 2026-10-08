@@ -1,0 +1,37 @@
+{
+  "required": true,
+  "package": "hypernebulae.tinb.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "BlockPosMixin",
+    "ChunkPosMixin",
+    "ChunkPyramidMixin",
+    "DataLayerStorageMapMixin",
+    "DebugEntryPositionMixinLegacy",
+    "DebugEntrySectionPositionMixin",
+    "DedicatedServerPropertiesMixin",
+    "EntityMixin",
+    "EntitySectionStorageMixin",
+    "ForceLoadCommandMixin",
+    "GenerationChunkHolderMixin",
+    "KeyboardHandlerMixinLegacy",
+    "LayerLightSectionStorageMixin",
+    "LevelMixin",
+    "LevelReaderMixin",
+    "MineshaftPieceMixin",
+    "MouseHandlerMixin",
+    "PerlinNoiseMixin",
+    "PlayerMixin",
+    "ServerGamePacketListenerImplMixin",
+    "ServerLevelMixin",
+    "ServerPlayerMixin",
+    "WorldBorderCommandMixin",
+    "WorldBorderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

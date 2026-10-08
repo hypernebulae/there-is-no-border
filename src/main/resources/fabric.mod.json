@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "there-is-no-border",
+	"version": "${version}",
+	"name": "there is no border",
+	"description": "extend the world border to beyond 30 million",
+	"authors": [
+		"hypernebulae"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/there-is-no-border",
+		"sources": "https://github.com/hypernebulae/there-is-no-border"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/tinb/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"preLaunch": [
+			"hypernebulae.tinb.PreLaunch"
+		],
+		"main": [
+			"hypernebulae.tinb.Main"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": ">=26.1",
+		"java": ">=25"
+	}
+}
